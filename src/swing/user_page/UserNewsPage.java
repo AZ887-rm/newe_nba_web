@@ -36,21 +36,28 @@ public class UserNewsPage extends AbstractPage {
             public void actionPerformed(ActionEvent e) {
                 if (page == 0)
                     JOptionPane.showMessageDialog(null, "No previous page!");
-                else
+                else {
+                    dispose();
                     new UserNewsPage(conn, username, page - 1);
+                }
             }
         });
         btn2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new UserNewsPage(conn, username, page + 1);
+                if (new NewsModule(conn, username).getNews(page + 1).size() == 0)
+                    JOptionPane.showMessageDialog(null, "Reach the bottom");
+                else
+                    new UserNewsPage(conn, username, page + 1);
             }
         });
         btn3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == btn3)
-                     new UserMainMenu(conn, username);
+                if (e.getSource() == btn3) {
+                    dispose();
+                    new UserMainMenu(conn, username);
+                }
             }
         });
 
@@ -60,7 +67,7 @@ public class UserNewsPage extends AbstractPage {
     }
 
     private void createUIComponents() {
-        String[] header = {"topic", "title", "summary", "author", "publish date", "link"};
+        String[] header = {"topic", "title", "summary", "author", "publish date"};
         List<List<String>>listData = new NewsModule(super.conn, super.username).getNews(this.page);
         int m = listData.size(), n = listData.get(0).size();
         Object[][] data = new Object[m][n];

@@ -2,7 +2,6 @@ package swing.journalist_page;
 
 import service.user_modules.NewsModule;
 import swing.home_page.LoginPage;
-import swing.user_page.TestPage;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

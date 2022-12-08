@@ -68,8 +68,10 @@ public class LoginPage extends JFrame {
                                     JOptionPane.showMessageDialog(null, "Login successfully!");
 
                                     if(acc.equals("Journalist")){
+                                        dispose();
                                         new JournalistMainPage(conn, userID, title);
                                     }else{
+                                        dispose();
                                         new UserMainMenu(conn, userID);
                                     }
                                 }else{

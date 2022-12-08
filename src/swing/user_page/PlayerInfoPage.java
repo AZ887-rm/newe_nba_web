@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
@@ -58,13 +59,23 @@ public class PlayerInfoPage extends AbstractSearchPage {
         gamesBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                dispose();
+                new GamesInfoPage(conn, username, new int[] {1, playerId});
+            }
+        });
+        backBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new SearchPlayersPage(conn, username);
             }
         });
     }
 
     private void createUIComponents() {
         menuPanel = super.menuPanel;
+        searchField = super.searchField;
+        searchBtn = super.searchBtn;
 
         try {
             BufferedImage pic = ImageIO.read(new File("photos/thumbnails/" + playerId + ".png"));

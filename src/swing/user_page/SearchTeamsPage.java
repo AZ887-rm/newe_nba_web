@@ -16,8 +16,8 @@ import java.util.List;
 
 public class SearchTeamsPage extends AbstractSearchPage {
     private JPanel mainPanel;
+    private JTextField searchField;
     private JPanel searchBarPanel;
-    private JTextField textField1;
     private JButton searchBtn;
     private JPanel menuPanel;
     private JScrollPane scrollPanel;
@@ -42,16 +42,25 @@ public class SearchTeamsPage extends AbstractSearchPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-                int teamId = index.get(row);
-                dispose();
-                new TeamInfoPage(conn, username, teamId);
+                if (row != -1) {
+                    int teamId = index.get(row);
+                    dispose();
+                    new TeamInfoPage(conn, username, teamId);
+                } else
+                    JOptionPane.showMessageDialog(null, "Please select a row in the table");
             }
         });
 
         searchGameBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                int row = table.getSelectedRow();
+                if (row != -1) {
+                    int teamId = index.get(row);
+                    dispose();
+                    new GamesInfoPage(conn, username, new int[] {0, teamId});
+                } else
+                    JOptionPane.showMessageDialog(null, "Please select a row in the table");
             }
         });
         backBtn.addActionListener(new ActionListener() {
@@ -65,6 +74,8 @@ public class SearchTeamsPage extends AbstractSearchPage {
 
     private void createUIComponents() {
         menuPanel = super.menuPanel;
+        searchField = super.searchField;
+        searchBtn = super.searchBtn;
 
         // set table
         String[] header = {"team full name", "team abbreviation", "nickname"};

@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
 
-public class TeamInfoPage extends AbstractPage {
+public class TeamInfoPage extends AbstractSearchPage {
     private JPanel mainPanel;
     private JPanel searchBarPanel;
     private JTextField searchField;
@@ -41,6 +41,20 @@ public class TeamInfoPage extends AbstractPage {
         this.setContentPane(mainPanel);
         setVisible(true);
 
+        playersBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new TeamPlayersPage(conn, username, teamId);
+            }
+        });
+        gamesBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new GamesInfoPage(conn, username, new int[] {0, teamId});
+            }
+        });
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,6 +66,8 @@ public class TeamInfoPage extends AbstractPage {
 
     private void createUIComponents() {
         menuPanel = super.menuPanel;
+        searchField = super.searchField;
+        searchBtn = super.searchBtn;
 
         try {
             BufferedImage pic = ImageIO.read(new File("photos/teams/" + teamId + ".png"));
@@ -61,7 +77,7 @@ public class TeamInfoPage extends AbstractPage {
         }
 
         String[] header = {"team name", "abbreviation", "arena", "city", "state", "year founded", "owner"};
-        List<List<String>> listData = new SearchTeamModule(conn).getTeamDetail(teamId);
+        List<List<String>> listData = new SearchTeamModule(conn).getTeamDetails(teamId);
         int m = listData.size(), n = listData.get(0).size();
         Object[][] data = new Object[m][n];
         for (int i = 0; i < m; i++) {

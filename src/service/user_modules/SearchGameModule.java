@@ -133,4 +133,37 @@ public class SearchGameModule extends SearchModule {
 
         return null;
     }
+
+    public List<List<String>> getTeamGames(int teamId) {
+        try {
+            String sql = "CALL getTeamGames(?)";
+            CallableStatement cstmt = conn.prepareCall(sql);
+            cstmt.clearParameters();
+            cstmt.setInt(1, teamId);
+            ResultSet rs = cstmt.executeQuery();
+
+            if (!rs.isBeforeFirst())
+                return null;
+
+            List<List<String>> res = new LinkedList<>();
+            while (rs.next()) {
+                List<String> row = new LinkedList<>();
+                row.add(rs.getString("season"));
+                row.add(rs.getString("date"));
+                row.add(rs.getString("home"));
+                row.add(rs.getString("away"));
+                row.add(rs.getString("winner"));
+                row.add(rs.getString("scores"));
+                row.add(rs.getString("assists"));
+                row.add(rs.getString("rebound"));
+                res.add(row);
+            }
+
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

@@ -87,6 +87,15 @@ public class FollowModule {
                 int teamId = rs.getInt("id");
                 // follow a team
                 if (operation == 0) {
+                    // check if already exists
+                    sql = "CALL checkUserFollow(?, ?)";
+                    CallableStatement cstmt = conn.prepareCall(sql);
+                    cstmt.clearParameters();
+                    cstmt.setString(1, abb);
+                    cstmt.setString(2, username);
+                    ResultSet temp = cstmt.executeQuery();
+                    if (temp.isBeforeFirst())
+                        return 2;
                     // add the username and team id to user_follow table
                     sql = "INSERT INTO user_follow VALUES(" + "'" + username + "'" + ", " + "'" + teamId + "'" + ")";
                     int updatedRow = DBUpdate.getResultSet(conn, sql);
@@ -95,6 +104,16 @@ public class FollowModule {
                     else
                         return 1;
                 } else if (operation == 1) {    // unfollow a team
+                    // check if follows
+                    sql = "CALL checkUserFollow(?, ?)";
+                    CallableStatement cstmt = conn.prepareCall(sql);
+                    cstmt.clearParameters();
+                    cstmt.setString(1, abb);
+                    cstmt.setString(2, username);
+                    ResultSet temp = cstmt.executeQuery();
+                    if (!temp.isBeforeFirst())
+                        return 2;
+
                     sql = "DELETE FROM user_follow WHERE username=" + "'" + username + "'" + "AND team_id=" + teamId;
                     int updatedRow = DBUpdate.getResultSet(conn, sql);
                     if (updatedRow == 1)

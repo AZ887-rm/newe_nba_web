@@ -1,6 +1,7 @@
 package swing.user_page;
 
 import dao.DBConn;
+import swing.home_page.LoginPage;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -13,7 +14,7 @@ import java.sql.Connection;
 public class UserMainMenu extends AbstractPage {
 
     private JPanel contentPane;
-    private JButton btn1, btn2, btn3;
+    private JButton btn1, btn2, btn3, logoutBtn;
     private JLabel jl1, jl2;
 
     public UserMainMenu(Connection conn, String username) {
@@ -70,10 +71,17 @@ public class UserMainMenu extends AbstractPage {
         });
         contentPane.add(btn3);
 
-        setVisible(true);
-    }
+        logoutBtn = new JButton("logout");
+        logoutBtn.setBounds(270, 500, 120, 50);
+        logoutBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new LoginPage(conn, "NBA data system");
+            }
+        });
+        contentPane.add(logoutBtn);
 
-    public static void main(String[] args) {
-        new UserMainMenu(DBConn.getConn("root", "12345678"), "123");
+        setVisible(true);
     }
 }

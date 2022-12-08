@@ -1,5 +1,6 @@
 package swing.user_page;
 
+import dao.DBConn;
 import service.user_modules.FollowModule;
 
 import javax.swing.*;
@@ -24,6 +25,7 @@ public class UserFollowPage extends AbstractPage {
     private JButton btn2;
     private JLabel userHintLabel;
     private JButton btn3;
+    private JLabel hintLabel;
 
     public UserFollowPage(Connection conn, String username) {
         super(conn, username);
@@ -31,9 +33,11 @@ public class UserFollowPage extends AbstractPage {
         setContentPane(mainPanel);
 
         List<String> followedTeams = new FollowModule(conn, username).getUserCurrentTeams();
-        StringBuffer sb = new StringBuffer("You have followed: ");
-        for (String team : followedTeams) {
-            sb.append(team + "   ");
+        StringBuilder sb = new StringBuilder("You have followed: ");
+        if (followedTeams != null) {
+            for (String team : followedTeams) {
+                sb.append(team + "   ");
+            }
         }
         userHintLabel.setText(sb.toString());
 
@@ -48,11 +52,13 @@ public class UserFollowPage extends AbstractPage {
                         int status = new FollowModule(conn, username).updateUserFollow(textValue, 0);
                         if (status == 1)
                             JOptionPane.showMessageDialog(null, "Wrong input, please input the team abbreviation in the table");
-                        else {
+                        else if (status == 0) {
                             JOptionPane.showMessageDialog(null, "You have add " + textValue + " to you favourite teams");
+                            setVisible(false);
                             dispose();
                             new UserFollowPage(conn, username);
-                        }
+                        } else
+                            JOptionPane.showMessageDialog(null, "You have already followed " + textValue);
                     }
                 }
             }
@@ -60,8 +66,10 @@ public class UserFollowPage extends AbstractPage {
         btn2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == btn2)
+                if (e.getSource() == btn2) {
+                    dispose();
                     new UserMainMenu(conn, username);
+                }
             }
         });
         btn3.addActionListener(new ActionListener() {
@@ -75,11 +83,13 @@ public class UserFollowPage extends AbstractPage {
                         int status = new FollowModule(conn, username).updateUserFollow(textValue, 1);
                         if (status == 1)
                             JOptionPane.showMessageDialog(null, "Wrong input, please input the team abbreviation in the table");
-                        else {
+                        else if (status == 0) {
                             JOptionPane.showMessageDialog(null, "You have unfollowed " + textValue + " to you favourite teams");
+                            setVisible(false);
                             dispose();  // it may take some time to process update and refresh the window
                             new UserFollowPage(conn, username);
-                        }
+                        } else
+                            JOptionPane.showMessageDialog(null, "You haven't follow " + textValue);
                     }
                 }
             }
@@ -101,5 +111,9 @@ public class UserFollowPage extends AbstractPage {
 
         DefaultTableModel defaultModel = new DefaultTableModel(data, header);
         table1 = new JTable(defaultModel);
+    }
+
+    public static void main(String[] args) {
+        new UserFollowPage(DBConn.getConn("root", "12345678"), "123");
     }
 }

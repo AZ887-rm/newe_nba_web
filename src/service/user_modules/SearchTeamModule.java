@@ -87,7 +87,7 @@ public class SearchTeamModule extends SearchModule {
         return -1;
     }
 
-    public List<List<String>> getTeamDetail(int teamId) {
+    public List<List<String>> getTeamDetails(int teamId) {
         try {
             String sql;
             ResultSet rs;

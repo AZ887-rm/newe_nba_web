@@ -43,24 +43,37 @@ public class SearchPlayersPage extends AbstractSearchPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-                int teamId = index.get(row).get(1);
-                dispose();
-                new TeamInfoPage(conn, username, teamId);
+                if (row != -1) {
+                    int teamId = index.get(row).get(1);
+                    dispose();
+                    new TeamInfoPage(conn, username, teamId);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a row in the table");
+                }
             }
         });
         searchPlayerBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-                int playerId = index.get(row).get(0);
-                dispose();
-                new PlayerInfoPage(conn, username, playerId);
+                if (row != -1) {
+                    int playerId = index.get(row).get(0);
+                    dispose();
+                    new PlayerInfoPage(conn, username, playerId);
+                } else
+                    JOptionPane.showMessageDialog(null, "Please select a row in the table");
             }
         });
         searchGameBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                int row = table.getSelectedRow();
+                if (row != -1) {
+                    int playerId = index.get(row).get(0);
+                    dispose();
+                    new GamesInfoPage(conn, username, new int[] {1, playerId});
+                } else
+                    JOptionPane.showMessageDialog(null, "Please select a row in the table");
             }
         });
         backBtn.addActionListener(new ActionListener() {

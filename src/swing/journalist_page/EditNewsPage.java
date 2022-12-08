@@ -1,7 +1,6 @@
 package swing.journalist_page;
 
 import service.user_modules.NewsModule;
-import swing.user_page.TestPage;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

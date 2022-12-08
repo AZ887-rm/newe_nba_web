@@ -39,18 +39,24 @@ public class SearchGamesPage extends AbstractSearchPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-                int homeId = index.get(row).get(1);
-                dispose();
-                new TeamInfoPage(conn,  username, homeId);
+                if (row != -1) {
+                    int homeId = index.get(row).get(1);
+                    dispose();
+                    new TeamInfoPage(conn,  username, homeId);
+                } else
+                    JOptionPane.showMessageDialog(null, "Please select a row in the table");
             }
         });
         searchAwayBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-                int awayId = index.get(row).get(2);
-                dispose();
-                new TeamInfoPage(conn, username, awayId);
+                if (row != -1) {
+                    int awayId = index.get(row).get(2);
+                    dispose();
+                    new TeamInfoPage(conn, username, awayId);
+                } else
+                    JOptionPane.showMessageDialog(null, "Please select a row in the table");
             }
         });
         searchGameBtn.addActionListener(new ActionListener() {
@@ -58,6 +64,8 @@ public class SearchGamesPage extends AbstractSearchPage {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 int gameId = index.get(row).get(0);
+                dispose();
+                new GamesInfoPage(conn, username, new int[] {2, gameId});
             }
         });
         backBtn.addActionListener(new ActionListener() {
@@ -71,6 +79,8 @@ public class SearchGamesPage extends AbstractSearchPage {
 
     private void createUIComponents() {
         menuPanel = super.menuPanel;
+        searchField = super.searchField;
+        searchBtn = super.searchBtn;
 
         // set table
         String[] header = {"season", "date", "home", "away", "winner", "score", "assist", "rebound"};
