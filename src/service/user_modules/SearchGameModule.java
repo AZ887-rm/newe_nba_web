@@ -96,7 +96,8 @@ public class SearchGameModule extends SearchModule {
 
     public List<List<String>> getGameDetails(int gameId) {
         try {
-            String sql = "SELECT * FROM game_details WHERE game_id=" + gameId;
+            String sql = "SELECT game_details.*, CONCAT(last_name, ' ', first_name) AS official FROM game_details " +
+                    "LEFT OUTER JOIN game_official USING(game_id) WHERE game_id=" + gameId;
             ResultSet rs = super.conn.prepareCall(sql).executeQuery();
 
             if (!rs.isBeforeFirst())
@@ -108,6 +109,7 @@ public class SearchGameModule extends SearchModule {
                 row.add(rs.getString("game_id"));
                 row.add(rs.getString("team_id"));
                 row.add(rs.getString("player_id"));
+                row.add(rs.getString("official"));
                 row.add(rs.getString("min"));
                 row.add(rs.getString("pts"));
                 row.add(rs.getString("fgm"));

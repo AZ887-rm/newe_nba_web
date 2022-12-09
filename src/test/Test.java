@@ -13,24 +13,29 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class Test {
-    public static void main(String[] args) throws IOException {
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        int update_row = 0;
-        String sql = "";
-        String username = "root";
-        String password = "12345678";
+    public static void main(String[] args) {
+        Connection conn;
+        String username;
+        String password;
 
         // get connection
-        conn = DBConn.getConn(username, password);
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.print("Input your database username: ");
+            username = sc.nextLine();
+            System.out.print("Input your database password: ");
+            password = sc.nextLine();
+            conn = DBConn.getConn(username, password);
 
-//        Login status = new Login(conn);
-//        status.run();
+            if (conn == null) {
+                System.out.println("Wrong username or password, please try again");
+            } else
+                break;
+        }
+
         LoginPage login = new LoginPage(conn, "NBA data system");
-//        ImageIO.read(new File("photos/thumbnails/" + 1610612737 + ".png"));
-//        photoLabel = new JLabel(new ImageIcon(pic.getScaledInstance(500, 350, Image.SCALE_SMOOTH)));
     }
 }

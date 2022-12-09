@@ -52,8 +52,10 @@ public class JournalistMainPage extends JFrame {
         btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == btn1)
+                if(e.getSource() == btn1) {
+                    dispose();
                     new WriteNewsPage(conn, username, title);
+                }
             }
         });
 
@@ -62,6 +64,7 @@ public class JournalistMainPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == btn2)
                     JOptionPane.showMessageDialog(null, "Log out successfully!");
+                    dispose();
                     new LoginPage(conn, title);
             }
         });
@@ -74,6 +77,7 @@ public class JournalistMainPage extends JFrame {
                 }else{
                     String data = (String) table1.getValueAt(table1.getSelectedRow(), 0);
                     int id = Integer.parseInt(data);
+                    dispose();
                     new EditNewsPage(conn, username, title, id);
                 }
             }

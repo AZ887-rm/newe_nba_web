@@ -55,6 +55,7 @@ public class WriteNewsPage extends JFrame{
 
                         new NewsModule(conn,username).writeNews(topic, textTitle, textSummary, username, publishDate);
                         JOptionPane.showMessageDialog(null, "Upload it successfully!");
+                        dispose();
                         new JournalistMainPage(conn, username, title);
                     }
                 }
@@ -65,6 +66,7 @@ public class WriteNewsPage extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == btn2) {
+                    dispose();
                     new JournalistMainPage(conn, username, title);
                 }
             }

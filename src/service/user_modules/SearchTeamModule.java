@@ -103,6 +103,7 @@ public class SearchTeamModule extends SearchModule {
                 List<String> row = new LinkedList<>();
                 row.add(rs.getString("full_name"));
                 row.add(rs.getString("abbreviation"));
+                row.add(rs.getString("head_coach"));
                 row.add(rs.getString("arena_name"));
                 row.add(rs.getString("city"));
                 row.add(rs.getString("state"));

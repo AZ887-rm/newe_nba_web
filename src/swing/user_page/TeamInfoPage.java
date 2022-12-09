@@ -76,7 +76,7 @@ public class TeamInfoPage extends AbstractSearchPage {
             e.printStackTrace();
         }
 
-        String[] header = {"team name", "abbreviation", "arena", "city", "state", "year founded", "owner"};
+        String[] header = {"team name", "abbreviation", "coach", "arena", "city", "state", "year founded", "owner"};
         List<List<String>> listData = new SearchTeamModule(conn).getTeamDetails(teamId);
         int m = listData.size(), n = listData.get(0).size();
         Object[][] data = new Object[m][n];

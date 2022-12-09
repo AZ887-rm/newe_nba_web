@@ -67,7 +67,7 @@ public class PlayerInfoPage extends AbstractSearchPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new SearchPlayersPage(conn, username);
+                new SearchTeamsPage(conn, username);
             }
         });
     }

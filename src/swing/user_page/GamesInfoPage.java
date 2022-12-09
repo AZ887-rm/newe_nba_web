@@ -78,7 +78,7 @@ public class GamesInfoPage extends AbstractSearchPage {
             DefaultTableModel defaultModel = new DefaultTableModel(data, header);
             table = new JTable(defaultModel);
         } else {
-            String[] header = {"game id", "team id", "player id", "min", "pts", "fgm", "fga", "fg3m", "fg3a", "ftm", "fta",
+            String[] header = {"game id", "team id", "player id", "official", "min", "pts", "fgm", "fga", "fg3m", "fg3a", "ftm", "fta",
                     "oreb", "dreb", "reb", "ast", "blk", "_to", "pf"};
             List<List<String>> listData = new SearchGameModule(conn).getGameDetails(s2);
             int m = listData.size(), n = listData.get(0).size();

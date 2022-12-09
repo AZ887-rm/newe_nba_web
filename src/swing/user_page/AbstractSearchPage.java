@@ -18,11 +18,11 @@ public class AbstractSearchPage extends AbstractPage {
         // set menu
         menuPanel = new JPanel();
         JMenuBar bar = new JMenuBar();
-        bar.setBounds(120, 15, 330, 30);
+        bar.setBounds(120, 15, 450, 30);
         menuPanel.add(bar);
 
-        JMenu teamsMenu = new JMenu("Search Teams");
-        teamsMenu.setBounds(120, 20, 30, 30);
+        JMenu teamsMenu = new JMenu("Search All Teams");
+        teamsMenu.setBounds(120, 20, 100, 30);
         teamsMenu.setForeground(Color.WHITE);
         bar.add(teamsMenu);
         teamsMenu.addMouseListener(new MouseAdapter() {
@@ -33,8 +33,8 @@ public class AbstractSearchPage extends AbstractPage {
             }
         });
 
-        JMenu playersMenu = new JMenu("Search Players");
-        playersMenu.setBounds(160, 20, 30, 30);
+        JMenu playersMenu = new JMenu("Search All Players");
+        playersMenu.setBounds(250, 20, 100, 30);
         playersMenu.setForeground(Color.WHITE);
         bar.add(playersMenu);
         playersMenu.addMouseListener(new MouseAdapter() {
@@ -45,8 +45,8 @@ public class AbstractSearchPage extends AbstractPage {
             }
         });
 
-        JMenu gamesMenu = new JMenu("Search Games");
-        gamesMenu.setBounds(200, 20, 30, 30);
+        JMenu gamesMenu = new JMenu("Search All Games");
+        gamesMenu.setBounds(380, 20, 100, 30);
         gamesMenu.setForeground(Color.WHITE);
         bar.add(gamesMenu);
         gamesMenu.addMouseListener(new MouseAdapter() {

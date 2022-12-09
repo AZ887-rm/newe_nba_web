@@ -73,6 +73,7 @@ public class SignupPage extends JFrame{
                             preparedStmt.setString (2, password);
                             preparedStmt.execute();
                             JOptionPane.showMessageDialog(null, "Sign up successfully!");
+                            dispose();
                             new LoginPage(conn, title);
                         }
                     }catch (SQLException ex) {

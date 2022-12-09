@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 // Mysql database connector
 public class DBConn {
@@ -27,6 +28,8 @@ public class DBConn {
             conn = DriverManager.getConnection(url, username, password);
 
             System.out.println("Database is successfully connected");
+        } catch (SQLException e) {
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
         }

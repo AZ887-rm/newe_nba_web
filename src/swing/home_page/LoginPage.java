@@ -91,6 +91,7 @@ public class LoginPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource()==btn2){
+                    dispose();
                     new SignupPage(conn, title);
                 }
             }
